@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
+* {
+    font-family: 'Trocchi', serif;
+    color: #463833;
+}
+body{
+    background-color: #CEB173;
+}
+
+button{
+    background-color: #8c5945;
+    border: 3px solid #8c5945;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    color: #FFF;
+}
+
+button:active{
+    border: 3px solid #54758d;
+    transform: scale(0.95)
+}

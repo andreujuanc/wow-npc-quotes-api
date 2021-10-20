@@ -1,45 +1,44 @@
 import React from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
-import Nav from '../components/nav'
 
-const Home = () => (
-  <div>
-    <Head>
-      <title>Home</title>
-    </Head>
+const Home = () => {
+  const [quoteData, setQuote] = React.useState()
+  const [loading, setLoading] = React.useState(false)
+  const getQuote = async () => {
+    setLoading(true)
+    try {
+      const quoteResponse = await fetch('/api/quote')
+      setQuote(await quoteResponse.json())
+    } catch {
 
-    <Nav />
+    }
+    setLoading(false)
+  }
 
-    <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
-      <p className='description'>
-        To get started, edit <code>pages/index.js</code> and save to reload.
-      </p>
+  React.useEffect(() => {
+    getQuote()
+  }, [])
 
-      <div className='row'>
-        <Link href='https://github.com/zeit/next.js#setup'>
-          <a className='card'>
-            <h3>Getting Started &rarr;</h3>
-            <p>Learn more about Next.js on GitHub and in their examples.</p>
-          </a>
-        </Link>
-        <Link href='https://github.com/zeit/next.js/tree/master/examples'>
-          <a className='card'>
-            <h3>Examples &rarr;</h3>
-            <p>Find other example boilerplates on the Next.js GitHub.</p>
-          </a>
-        </Link>
-        <Link href='https://github.com/zeit/next.js'>
-          <a className='card'>
-            <h3>Create Next App &rarr;</h3>
-            <p>Was this tool helpful? Let us know how we can improve it!</p>
-          </a>
-        </Link>
+  return (
+    <div>
+      <Head>
+        <title>WOW NPC QUOTES</title>
+      </Head>
+
+      <div className='hero'>
+        <h1 className='title'>WOW NPC QUOTES</h1>
+        <p className='description'>
+          {quoteData ? quoteData.quote.toString() : null}
+        </p>
+
+        <div className='row'>
+          <button disabled={loading} onClick={getQuote}>
+            {loading ? '⌛' : 'Random Quote'}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <style jsx>{`
+      <style jsx>{`
       .hero {
         width: 100%;
         color: #333;
@@ -85,7 +84,8 @@ const Home = () => (
         color: #333;
       }
     `}</style>
-  </div>
-)
+    </div>
+  )
+}
 
 export default Home
