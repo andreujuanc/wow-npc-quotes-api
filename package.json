@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "jsdom": "^15.1.1",
+    "jsdom": "^16.5.0",
     "next": "^11.1.2",
     "node-fetch": "^2.6.0",
     "react": "17.0.2",
